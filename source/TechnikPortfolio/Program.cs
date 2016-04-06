@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Linq;
     using System.IO;
 
@@ -13,6 +14,7 @@
         public Level From { get; set; }
         public Level To { get; set; }
     }
+
     public static class Program
     {
         static void Main(string[] args)
@@ -126,7 +128,13 @@
             var formatter = new DotFormatter();
             var dot = formatter.Format(issues);
 
+            Console.WriteLine("writing dot file");
+
             WriteDotFile(dot);
+
+            Console.WriteLine("running dot.exe");
+
+            RunDotExecutable();
 
             Console.WriteLine("finished");
         }
@@ -136,6 +144,15 @@
             using (StreamWriter w = new StreamWriter("issues.dot"))
             {
                 w.Write(dot);
+            }
+        }
+
+        private static void RunDotExecutable()
+        {
+            using (var dot = new Process())
+            {
+                dot.StartInfo = new ProcessStartInfo("graphviz\\dot.exe", "-Tpng issues.dot -o issues.png");
+                dot.Start();
             }
         }
     }

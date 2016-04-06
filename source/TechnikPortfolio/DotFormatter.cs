@@ -13,7 +13,7 @@
             dot.AppendLine("node [shape=none fontname=Arial]");
             dot.AppendLine("rankdir=BT");
             dot.AppendLine("ranksep = 4");
-            
+
             foreach (var issue in issues)
             {
                 dot.AppendLine($"{issue.Id} [label=<<table border=\"0\" cellborder=\"1\"><tr><td bgcolor=\"gray\"><font point-size=\"8\">{issue.Id}</font>{issue.Name}</td></tr><tr><td><font point-size=\"8\">{issue.Classification}</font></td></tr><tr><td><font point-size=\"8\">{issue.Priority}</font></td></tr></table>>];");
@@ -23,11 +23,11 @@
                 }
             }
 
-            foreach (IGrouping<Level, Issue> grouping in issues.GroupBy(i => i.Level))
-            {
-                string ids = grouping.Aggregate("", (a, v) => $"{a} {v.Id}");
-                dot.AppendLine($"{{rank=same {ids}}}");
-            }
+            string kompetenzen = issues.Where(i => i.Level == Level.Kompetenz).Aggregate("", (a, v) => $"{a} {v.Id}");
+            dot.AppendLine($"{{rank=same {kompetenzen}}}");
+
+            string keywords = issues.Where(i => i.Level == Level.Keyword).Aggregate("", (a, v) => $"{a} {v.Id}");
+            dot.AppendLine($"{{rank=same {keywords}}}");
 
             dot.AppendLine("}");
 
