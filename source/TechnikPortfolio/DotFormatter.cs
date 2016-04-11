@@ -11,7 +11,7 @@
             StringBuilder dot = new StringBuilder();
             dot.AppendLine("digraph Technik_Portfolio {");
             dot.AppendLine("node [shape=none fontname=Arial]");
-            dot.AppendLine("rankdir=BT");
+            dot.AppendLine("rankdir=RL");
             dot.AppendLine("ranksep = 4");
 
             foreach (var issue in issues)
