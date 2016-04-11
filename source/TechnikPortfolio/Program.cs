@@ -41,11 +41,11 @@
                         .HavingLongAlias("password")
                         .DescribedBy("password", "password to access YouTrack")
                     .WithNamed("f", v => filter = v)
-                        .DescribedBy("filter", "only elements related to elements matching the specified regex are included.")
+                        .DescribedBy("filter", "only elements related to elements matching the specified regex are included")
                     .WithNamed("l", v => levelRange = ParseLevelRange(v))
-                        .DescribedBy("Levels", $"specify which levels to report in the format from..to with from and to one of [{Mappings.Of<Level>()}]")
+                        .DescribedBy("Levels", $"specify which levels to report in the format from..to with from and to one of [{Mappings.Of<Level>()}]. Default = K..T")
                     .WithNamed("k", v => classifications = ParseClassifications(v))
-                        .DescribedBy("Klassifizierungen", $"comma seperated list of Klassifizierungen to include [{Mappings.Of<Classification>()}].")
+                        .DescribedBy("Klassifizierungen", $"comma seperated list of Klassifizierungen to include [{Mappings.Of<Classification>()}]. Default = {string.Join(",", classifications)}")
                     .BuildConfiguration();
 
             var parser = new CommandLineParser(configuration);
@@ -113,7 +113,10 @@
             LevelRange levelRange, 
             Collection<Classification> classifications)
         {
-            Console.WriteLine("started");
+            Console.WriteLine("started using");
+            Console.WriteLine($"    filter = {filter}");
+            Console.WriteLine($"    levels included = {levelRange.From}..{levelRange.To}");
+            Console.WriteLine($"    classifications included = {string.Join(",", classifications)}");
 
             var youTrack = new YouTrack();
             var issues = youTrack.GetIssues(username, password);
@@ -121,12 +124,16 @@
             Console.WriteLine($"{issues.Count} issues parsed");
 
             var issueFilter = new IssueFilter();
-            issues = issueFilter.FilterIssues(issues, levelRange, filter, classifications);
+            var filteredIssues = issueFilter.FilterIssues(issues, levelRange, filter, classifications);
 
-            Console.WriteLine($"{issues.Count} issues left after filtering");
+            Console.WriteLine($"{filteredIssues.Count} issues left after filtering. Filtered out:");
+            foreach (var issue in issues.Except(filteredIssues))
+            {
+                Console.WriteLine($"    - {issue.Name}({issue.Level},{issue.Classification})");
+            }
 
             var formatter = new DotFormatter();
-            var dot = formatter.Format(issues);
+            var dot = formatter.Format(filteredIssues);
 
             Console.WriteLine("writing dot file");
 

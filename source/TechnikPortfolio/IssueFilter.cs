@@ -58,7 +58,9 @@
         
         private static IEnumerable<Issue> GetAllRelatedIssues(Issue issue, IReadOnlyList<Issue> all)
         {
-            return GetAllRelatedIssuesUpwards(issue, all).Union(GetAllRelatedIssuesDownwards(issue, all));
+            return GetAllRelatedIssuesUpwards(issue, all)
+                .Union(GetAllRelatedIssuesDownwards(issue, all))
+                .Union(new[] { issue });
         }
 
         private static IEnumerable<Issue> GetAllRelatedIssuesUpwards(Issue issue, IReadOnlyList<Issue> all)
