@@ -41,7 +41,7 @@
                         .HavingLongAlias("password")
                         .DescribedBy("password", "password to access YouTrack")
                     .WithNamed("f", v => filter = v)
-                        .DescribedBy("filter", "only root elements that match this regex will be shown (root elements are by default Keyword, unless you defined a different level range).")
+                        .DescribedBy("filter", "only elements related to elements matching the specified regex are included.")
                     .WithNamed("l", v => levelRange = ParseLevelRange(v))
                         .DescribedBy("Levels", $"specify which levels to report in the format from..to with from and to one of [{Mappings.Of<Level>()}]")
                     .WithNamed("k", v => classifications = ParseClassifications(v))
@@ -109,7 +109,7 @@
         private static void Run(
             string username, 
             string password, 
-            string keywordFilter, 
+            string filter, 
             LevelRange levelRange, 
             Collection<Classification> classifications)
         {
@@ -120,8 +120,8 @@
 
             Console.WriteLine($"{issues.Count} issues parsed");
 
-            var filter = new IssueFilter();
-            issues = filter.FilterIssues(issues, levelRange, keywordFilter, classifications);
+            var issueFilter = new IssueFilter();
+            issues = issueFilter.FilterIssues(issues, levelRange, filter, classifications);
 
             Console.WriteLine($"{issues.Count} issues left after filtering");
 
