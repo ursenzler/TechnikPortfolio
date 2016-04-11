@@ -26,9 +26,6 @@
             string kompetenzen = issues.Where(i => i.Level == Level.Kompetenz).Aggregate("", (a, v) => $"{a} {v.Id}");
             dot.AppendLine($"{{rank=same {kompetenzen}}}");
 
-            string keywords = issues.Where(i => i.Level == Level.Keyword).Aggregate("", (a, v) => $"{a} {v.Id}");
-            dot.AppendLine($"{{rank=same {keywords}}}");
-
             dot.AppendLine("}");
 
             return dot.ToString();
