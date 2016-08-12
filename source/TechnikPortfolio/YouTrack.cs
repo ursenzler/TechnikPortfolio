@@ -73,6 +73,8 @@
             var linksTo = GetLinks(t);
             var classification = GetEnumFieldValue(t, "TP Klassifizierung", NoClassification).ParseValueAs<Classification>();
             var priority = GetEnumFieldValue(t, "TP Priority", "no priority");
+            var types = GetMultivalueEnumFieldValues(t, "TP Type");
+            var kompetenzen = GetMultivalueEnumFieldValues(t, "Kompetenz");
 
             return new Issue
             {
@@ -81,7 +83,9 @@
                 Level = level,
                 LinksTo = linksTo,
                 Classification = classification,
-                Priority = priority
+                Priority = priority,
+                Types = types,
+                Kompetenzen = kompetenzen
             };
         }
 
@@ -109,6 +113,18 @@
             }
 
             return value;
+        }
+
+        private static IEnumerable<string> GetMultivalueEnumFieldValues(JToken t, string fieldname)
+        {
+            IEnumerable<string> values = Enumerable.Empty<string>();
+            var enumsField = ((JArray)t["field"]).SingleOrDefault(f => (string)f["name"] == fieldname);
+            if (enumsField != null)
+            {
+                values = enumsField["value"].Select(x => x.ToString());
+            }
+
+            return values;
         }
 
         private static IEnumerable<string> GetLinks(JToken t)

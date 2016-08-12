@@ -15,5 +15,9 @@ namespace TechnikPortfolio
         public string Priority { get; set; }
 
         public IEnumerable<string> LinksTo { get; set; }
+
+        public IEnumerable<string> Types { get; set; }
+
+        public IEnumerable<string> Kompetenzen { get; set; }
     }
 }
