@@ -10,8 +10,6 @@
 
     using Appccelerate.CommandLineParser;
 
-    using RestSharp.Extensions;
-
     public class LevelRange
     {
         public Level From { get; set; }
