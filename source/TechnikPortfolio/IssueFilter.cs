@@ -7,14 +7,33 @@
 
     public class IssueFilter
     {
-        public IReadOnlyList<Issue> FilterIssues(IReadOnlyList<Issue> issues, LevelRange levelRange, string filter, Collection<Classification> classifications)
+        public IReadOnlyList<Issue> FilterIssues(IReadOnlyList<Issue> issues, LevelRange levelRange, IReadOnlyList<string> kompetenzen, string filter, Collection<Classification> classifications)
         {
+            issues = FilterByKompetenz(issues, kompetenzen);
             issues = FilterByLevel(issues, levelRange);
             issues = FilterByMatchingFilter(issues, filter);
             issues = FilterByClassifications(issues, classifications);
             
             RemoveLinksPointingToFilteredIssues(issues);
 
+            return issues;
+        }
+
+        private static IReadOnlyList<Issue> FilterByKompetenz(IReadOnlyList<Issue> issues, IReadOnlyList<string> kompetenzen)
+        {
+            if (!kompetenzen.Any())
+            {
+                return issues;
+            }
+
+            issues = issues
+                .Where(i => 
+                    i.Kompetenzen
+                        .Select(x => x.ToLowerInvariant())
+                        .Intersect(
+                            kompetenzen.Select(x => x.ToLowerInvariant()))
+                    .Any())
+                .ToList();
             return issues;
         }
 

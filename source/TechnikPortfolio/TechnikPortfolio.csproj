@@ -70,6 +70,20 @@
     <Compile Include="Mappings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadarWriter.cs" />
+    <Compile Include="TechRadar\Blip.cs" />
+    <Compile Include="TechRadar\BlipPosition.cs" />
+    <Compile Include="TechRadar\Circle.cs" />
+    <Compile Include="TechRadar\Formatting\RadarFormatter.cs" />
+    <Compile Include="TechRadar\Formatting\RadarJSData.cs" />
+    <Compile Include="TechRadar\InfluenceCircle.cs" />
+    <Compile Include="TechRadar\PopulateQuadrant.cs" />
+    <Compile Include="TechRadar\PopulateRadarData.cs" />
+    <Compile Include="TechRadar\Quadrant.cs" />
+    <Compile Include="TechRadar\QuadrantData.cs" />
+    <Compile Include="TechRadar\RadarData.cs" />
+    <Compile Include="TechRadar\RandomPositionProvider.cs" />
+    <Compile Include="TreeWriter.cs" />
     <Compile Include="YouTrack.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +98,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="TechRadar\template\lib\protovis-3.2\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TechRadar\template\lib\protovis-3.2\MIT.LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TechRadar\template\lib\protovis-3.2\README">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TechRadar\template\lib\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="graphviz\acyclic.exe">
@@ -357,6 +383,32 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphviz\zlib1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\example.html" />
+    <Content Include="TechRadar\template\example.js" />
+    <Content Include="TechRadar\template\lib\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\lib\lodash.underscore.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\lib\protovis-3.2\protovis-d3.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\lib\protovis-3.2\protovis-r3.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\lib\radar.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\lib\utils.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechRadar\template\template.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

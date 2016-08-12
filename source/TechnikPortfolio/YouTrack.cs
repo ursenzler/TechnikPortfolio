@@ -72,7 +72,7 @@
             var linksTo = GetLinks(t);
             var classification = GetEnumFieldValue(t, "TP Klassifizierung", NoClassification).ParseValueAs<Classification>();
             var priority = GetEnumFieldValue(t, "TP Priority", "no priority");
-            var types = GetMultivalueEnumFieldValues(t, "TP Type");
+            var types = GetMultivalueEnumFieldValues(t, "TP Type") ?? Enumerable.Empty<string>();
             var kompetenzen = GetMultivalueEnumFieldValues(t, "Kompetenz");
 
             return new Issue
